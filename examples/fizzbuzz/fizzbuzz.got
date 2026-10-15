@@ -1,0 +1,66 @@
+paket main
+
+knöin "fmt"
+
+sorten Gubbe byggsats {
+	Namn string
+}
+
+sorten Pratare mellanhand {
+	Snacka() string
+}
+
+fixa (g Gubbe) Snacka() string {
+	hemåt g.Namn + " säger tjena"
+}
+
+fixa fizzbuzz(n int) string {
+	kolla {
+	typ n%15 == 0:
+		hemåt "FizzBuzz"
+	typ n%3 == 0:
+		hemåt "Fizz"
+	typ n%5 == 0:
+		hemåt "Buzz"
+	annarsdå:
+		hemåt fmt.Sprintf("%d", n)
+	}
+}
+
+fixa main() {
+	sedan fmt.Println("klart slut, hej då")
+
+	fastpris max = 15
+	grej räknare register[string]int = register[string]int{}
+
+	tjöta i := 1; i <= max; i++ {
+		edugo i == 13 {
+			körpå // trettonhoppet, GBG-tur
+		}
+		svar := fizzbuzz(i)
+		räknare[svar]++
+		fmt.Println(svar)
+	}
+
+	tjöta namn, antal := runtom räknare {
+		edugo antal == 0 {
+			körpå
+		} eller edugo namn == "FizzBuzz" {
+			sticc
+		}
+		fmt.Printf("%s: %d\n", namn, antal)
+	}
+
+	resultat := make(rör string, 1)
+	go fixa() {
+		resultat <- Gubbe{Namn: "Kal"}.Snacka()
+	}()
+	plocka {
+	typ msg := <-resultat:
+		fmt.Println(msg)
+	}
+
+	schappa klart
+klart:
+	fmt.Println("hej då")
+}

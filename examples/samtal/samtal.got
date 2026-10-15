@@ -1,0 +1,14 @@
+paket main
+
+knöin "fmt"
+
+fixa main() {
+	fmt.Println("Vad heter du, gubbe?")
+	grej namn tjöt = hörru()
+	fmt.Printf("Tjena %s, käckt namn!\n", namn)
+
+	fmt.Println("Hur mång bus har du dragit i Göteborg?")
+	grej bus nuffra
+	fmt.Sscanf(hörru(), "%d", &bus)
+	fmt.Printf("%d bus, du e en riktig gubbe.\n", bus)
+}

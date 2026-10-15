@@ -1,0 +1,48 @@
+{
+  "name": "gotlang",
+  "displayName": "Gotlang",
+  "description": "Syntax highlighting and run support for Gotlang (.got), the Göteborg-humor dialect of Go.",
+  "version": "0.1.0",
+  "publisher": "gotlang-dev",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": ["Programming Languages"],
+  "activationEvents": [
+    "onLanguage:gotlang"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "gotlang",
+        "aliases": ["Gotlang", "got"],
+        "extensions": [".got"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "gotlang",
+        "scopeName": "source.gotlang",
+        "path": "./syntaxes/gotlang.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "gotlang.runFile",
+        "title": "Gotlang: Run File",
+        "icon": "$(play)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "gotlang.runFile",
+          "when": "resourceLangId == gotlang",
+          "group": "navigation"
+        }
+      ]
+    }
+  }
+}

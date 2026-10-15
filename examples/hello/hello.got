@@ -1,0 +1,7 @@
+paket main
+
+knöin "fmt"
+
+fixa main() {
+	fmt.Println("Tjena, Göteborg!")
+}

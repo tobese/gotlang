@@ -1,0 +1,107 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Gotlang",
+  "scopeName": "source.gotlang",
+  "fileTypes": ["got"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#func-decl" },
+    { "include": "#type-decl" },
+    { "include": "#keywords-control" },
+    { "include": "#keywords-decl" },
+    { "include": "#keywords-storage-type" },
+    { "include": "#keywords-storage-modifier" },
+    { "include": "#predeclared-types" },
+    { "include": "#constants-language" },
+    { "include": "#builtin-functions" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.gotlang",
+          "begin": "//",
+          "end": "$"
+        },
+        {
+          "name": "comment.block.gotlang",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.gotlang",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [{ "name": "constant.character.escape.gotlang", "match": "\\\\." }]
+        },
+        {
+          "name": "string.quoted.raw.gotlang",
+          "begin": "`",
+          "end": "`"
+        },
+        {
+          "name": "string.quoted.single.gotlang",
+          "begin": "'",
+          "end": "'",
+          "patterns": [{ "name": "constant.character.escape.gotlang", "match": "\\\\." }]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.gotlang",
+          "match": "\\b(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*\\.?[0-9_]*([eE][+-]?[0-9_]+)?i?)\\b"
+        }
+      ]
+    },
+    "func-decl": {
+      "match": "\\b(fixa)\\b(\\s+\\([^)]*\\))?\\s+([\\p{L}_][\\p{L}\\p{N}_]*)",
+      "captures": {
+        "1": { "name": "keyword.other.gotlang" },
+        "3": { "name": "entity.name.function.gotlang" }
+      }
+    },
+    "type-decl": {
+      "match": "\\b(sorten)\\b\\s+([\\p{L}_][\\p{L}\\p{N}_]*)",
+      "captures": {
+        "1": { "name": "keyword.other.gotlang" },
+        "2": { "name": "entity.name.type.gotlang" }
+      }
+    },
+    "keywords-control": {
+      "match": "(?<![\\p{L}\\p{N}_])(edugo|eller|tjöta|hemåt|sticc|körpå|kolla|typ|annarsdå|barakör|plocka|runtom|schappa)(?![\\p{L}\\p{N}_])",
+      "name": "keyword.control.gotlang"
+    },
+    "keywords-decl": {
+      "match": "(?<![\\p{L}\\p{N}_])(paket|knöin|fixa|sedan|go)(?![\\p{L}\\p{N}_])",
+      "name": "keyword.other.gotlang"
+    },
+    "keywords-storage-type": {
+      "match": "(?<![\\p{L}\\p{N}_])(byggsats|mellanhand|sorten|register|rör)(?![\\p{L}\\p{N}_])",
+      "name": "storage.type.gotlang"
+    },
+    "keywords-storage-modifier": {
+      "match": "(?<![\\p{L}\\p{N}_])(fastpris|grej)(?![\\p{L}\\p{N}_])",
+      "name": "storage.modifier.gotlang"
+    },
+    "predeclared-types": {
+      "match": "(?<![\\p{L}\\p{N}_])(nuffra|tjöt|int|string|bool|byte|rune|error|any|float32|float64|complex64|complex128|int8|int16|int32|int64|uint|uint8|uint16|uint32|uint64|uintptr)(?![\\p{L}\\p{N}_])",
+      "name": "support.type.gotlang"
+    },
+    "constants-language": {
+      "match": "(?<![\\p{L}\\p{N}_])(true|false|nil|iota)(?![\\p{L}\\p{N}_])",
+      "name": "constant.language.gotlang"
+    },
+    "builtin-functions": {
+      "match": "(?<![\\p{L}\\p{N}_])(hörru|append|cap|close|complex|copy|delete|imag|len|make|new|panic|print|println|real|recover)(?=\\s*\\()",
+      "name": "support.function.builtin.gotlang"
+    }
+  }
+}
