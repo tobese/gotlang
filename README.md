@@ -94,6 +94,7 @@ Try it:
 go run ./cmd/gotlang run examples/hello/hello.got
 go run ./cmd/gotlang run examples/fizzbuzz/fizzbuzz.got
 go run ./cmd/gotlang run examples/samtal/samtal.got
+go run ./cmd/gotlang run examples/fyran/fyran.got
 go run ./cmd/gotlang run src/hallå.got
 ```
 

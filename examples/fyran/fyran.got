@@ -1,0 +1,44 @@
+paket main
+
+// "Fyran" — GBG nickname for spårvagnslinje 4. Southbound from Saltholmen,
+// the stops below run until Lana, the last one before you roll into Mölndal.
+fixa main() {
+	grej hallplatser = []tjöt{
+		"Saltholmen",
+		"Långedrag",
+		"Hinsholmen",
+		"Käringberget",
+		"Tranered",
+		"Hagen",
+		"Nya Varvsallén",
+		"Kungssten",
+		"Sandarna",
+		"Sannaplan",
+		"Mariaplan",
+		"Godhemsgatan",
+		"Ekedal",
+		"Majvallen",
+		"Fjällgatan",
+		"Stigbergstorget",
+		"Masthuggstorget",
+		"Järntorget",
+		"Brunnsparken",
+		"Drottningtorget",
+		"Korsvägen",
+		"Liseberg Södra",
+		"Almedal",
+		"Elisedal",
+		"Varbergsgatan",
+		"Lana",
+	}
+
+	grej i nuffra = 0
+	tjöta i < len(hallplatser) {
+		namn := hallplatser[i]
+		Tjöta(namn)
+		edugo namn == "Lana" {
+			sticc
+		}
+		i++
+	}
+}
