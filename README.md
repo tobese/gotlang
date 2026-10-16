@@ -88,7 +88,17 @@ go run ./cmd/gotlang run src/hallå.got
 ```
 
 `src/` holds standalone `.got` programs (outside the `examples/` demos) —
-start with `src/hallå.got`, a hello-world written in Gotlang.
+start with `src/hallå.got`, a hello-world written in Gotlang:
+
+```go
+paket main
+
+knöin "fmt"
+
+fixa main() {
+	fmt.Println("Hallå, Göteborg!")
+}
+```
 
 ## Editor support
 
