@@ -42,7 +42,7 @@ func prepareBuildDir(srcDir string) (string, error) {
 		return "", err
 	}
 
-	needsRuntime := false
+	var runtimeUsage transpile.RuntimeUsage
 	pkgName := ""
 
 	err = filepath.WalkDir(srcDir, func(path string, d fs.DirEntry, err error) error {
@@ -66,9 +66,7 @@ func prepareBuildDir(srcDir string) (string, error) {
 			if err != nil {
 				return err
 			}
-			if transpile.NeedsRuntime(src) {
-				needsRuntime = true
-			}
+			runtimeUsage.Merge(transpile.NeedsRuntime(src))
 			translated, err := transpile.Transpile(src)
 			if err != nil {
 				return fmt.Errorf("%s: %w", rel, err)
@@ -90,9 +88,9 @@ func prepareBuildDir(srcDir string) (string, error) {
 		return "", err
 	}
 
-	if needsRuntime {
+	if runtimeUsage.Any() {
 		runtimePath := filepath.Join(buildDir, "gotlang_runtime.go")
-		if err := os.WriteFile(runtimePath, transpile.RuntimeSource(pkgName), 0o644); err != nil {
+		if err := os.WriteFile(runtimePath, transpile.RuntimeSource(pkgName, runtimeUsage), 0o644); err != nil {
 			return "", err
 		}
 	}

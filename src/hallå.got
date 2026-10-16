@@ -1,7 +1,5 @@
 paket main
 
-knöin "fmt"
-
 fixa main() {
-	fmt.Println("Hallå, Göteborg!")
+	Tjöta("Hallå, Göteborg!")
 }

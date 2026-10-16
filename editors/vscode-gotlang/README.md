@@ -7,7 +7,8 @@ not published to the Marketplace.
 
 - Registers the `gotlang` language for `.got` files, with highlighting for
   the full Gotlang keyword table (`edugo`, `eller`, `tjöta`, `fixa`,
-  `byggsats`, ...), strings, comments, numbers, and the `hörru()` builtin.
+  `byggsats`, ...), strings, comments, numbers, and the `hörru()`/`Tjöta()`
+  builtins.
 - Adds a **Gotlang: Run File** command (and a ▶ button in the editor
   title bar for `.got` files) that runs the current file through
   `gotlang run` in an integrated terminal.

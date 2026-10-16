@@ -115,26 +115,36 @@ func TestNeedsRuntime(t *testing.T) {
 	cases := []struct {
 		name string
 		src  string
-		want bool
+		want RuntimeUsage
 	}{
-		{"calls hörru", `fixa main() { namn := hörru() }`, true},
-		{"mentions it only in a string", `fixa main() { hemåt "hörru" }`, false},
-		{"mentions it only in a comment", "fixa main() { } // hörru", false},
-		{"identifier merely containing the word", `grej hörrugrej = 1`, false},
-		{"no mention at all", `fixa main() {}`, false},
+		{"calls hörru", `fixa main() { namn := hörru() }`, RuntimeUsage{Input: true}},
+		{"calls Tjöta", `fixa main() { Tjöta("hej") }`, RuntimeUsage{Print: true}},
+		{"calls both", `fixa main() { Tjöta(hörru()) }`, RuntimeUsage{Input: true, Print: true}},
+		{"mentions hörru only in a string", `fixa main() { hemåt "hörru" }`, RuntimeUsage{}},
+		{"mentions hörru only in a comment", "fixa main() { } // hörru", RuntimeUsage{}},
+		{"identifier merely containing the word", `grej hörrugrej = 1`, RuntimeUsage{}},
+		{"lowercase tjöta keyword is not the Tjöta helper", `tjöta { }`, RuntimeUsage{}},
+		{"no mention at all", `fixa main() {}`, RuntimeUsage{}},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			if got := NeedsRuntime([]byte(tc.src)); got != tc.want {
-				t.Errorf("NeedsRuntime(%q) = %v, want %v", tc.src, got, tc.want)
+				t.Errorf("NeedsRuntime(%q) = %+v, want %+v", tc.src, got, tc.want)
 			}
 		})
 	}
 }
 
 func TestRuntimeSourceIsValidGo(t *testing.T) {
-	out := RuntimeSource("main")
-	if _, err := format.Source(out); err != nil {
-		t.Fatalf("RuntimeSource output is not valid Go: %v\n---\n%s", err, out)
+	cases := []RuntimeUsage{
+		{Input: true},
+		{Print: true},
+		{Input: true, Print: true},
+	}
+	for _, usage := range cases {
+		out := RuntimeSource("main", usage)
+		if _, err := format.Source(out); err != nil {
+			t.Fatalf("RuntimeSource(%+v) output is not valid Go: %v\n---\n%s", usage, err, out)
+		}
 	}
 }

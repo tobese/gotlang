@@ -44,21 +44,28 @@ Beyond the ~25 reserved keywords, two predeclared type identifiers are
 renamed too (`nuffra`, `tjöt`). Everything else in builtins and stdlib
 (`fmt.Println`, `true`, `false`, `make`, `len`, ...) is untouched.
 
-## hörru() — reading input
+## hörru() / Tjöta() — runtime helpers
 
-Go has no builtin for reading a line from stdin the way Python's `input()`
-does, so `hörru()` isn't a token swap like the rest of the table — it's a
-real helper function that `gotlang run`/`gotlang build` generate and inject
-into the build (as `gotlang_runtime.go`) whenever a `.got` file calls it.
+Two words in Gotlang aren't token swaps like the rest of the table — they're
+real helper functions that `gotlang run`/`gotlang build` generate and inject
+into the build (as `gotlang_runtime.go`) whenever a `.got` file calls them.
 `gotlang translate` only ever does token swapping on a single file, so a
-file calling `hörru()` will translate to Go that references an undefined
+file calling either will translate to Go that references an undefined
 function — use `run`/`build` for a complete, runnable program.
+
+- `hörru()` reads a line from stdin, the way Python's `input()` does —
+  something Go has no builtin for.
+- `Tjöta(...)` prints its arguments followed by a newline, the way
+  `fmt.Println` does — "tjöta" being GBG slang for yapping on, fitting for
+  a function whose whole job is to talk.
 
 ```
 grej namn tjöt = hörru()
+Tjöta("tjena", namn)
 ```
 
-See `examples/samtal` for a full program that reads a name and a number.
+See `examples/samtal` for a full program that reads a name and a number,
+and `src/hallå.got` for a minimal `Tjöta()` hello-world.
 
 ## Usage
 
@@ -93,10 +100,8 @@ start with `src/hallå.got`, a hello-world written in Gotlang:
 ```go
 paket main
 
-knöin "fmt"
-
 fixa main() {
-	fmt.Println("Hallå, Göteborg!")
+	Tjöta("Hallå, Göteborg!")
 }
 ```
 

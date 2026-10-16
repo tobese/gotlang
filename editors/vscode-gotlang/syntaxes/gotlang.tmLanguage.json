@@ -100,7 +100,7 @@
       "name": "constant.language.gotlang"
     },
     "builtin-functions": {
-      "match": "(?<![\\p{L}\\p{N}_])(hörru|append|cap|close|complex|copy|delete|imag|len|make|new|panic|print|println|real|recover)(?=\\s*\\()",
+      "match": "(?<![\\p{L}\\p{N}_])(hörru|Tjöta|append|cap|close|complex|copy|delete|imag|len|make|new|panic|print|println|real|recover)(?=\\s*\\()",
       "name": "support.function.builtin.gotlang"
     }
   }
