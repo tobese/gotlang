@@ -24,8 +24,8 @@ func main() {
 		err = cmdTranslate(os.Args[2:])
 	case "run":
 		err = cmdRun(os.Args[2:])
-	case "build":
-		err = cmdBuild(os.Args[2:])
+	case "mecka":
+		err = cmdMecka(os.Args[2:])
 	case "-h", "-help", "--help", "help":
 		usage()
 		return
@@ -47,7 +47,7 @@ Usage:
 
   gotlang translate <file.got> [-o out.go]   translate one file, print or write the Go source
   gotlang run <path>                         translate a package and run it
-  gotlang build <path> [-o binary]           translate a package and build it
+  gotlang mecka <path> [-o binary]           translate a package and compile it ("mecka" — GBG for tinkering a thing together)
 `)
 }
 
@@ -99,10 +99,10 @@ func cmdRun(args []string) error {
 	return runGoToolchain(buildDir, "run", ".")
 }
 
-// cmdBuild implements "gotlang build": translate a package directory into a
+// cmdMecka implements "gotlang mecka": translate a package directory into a
 // build cache, then "go build" it there.
-func cmdBuild(args []string) error {
-	fs := flag.NewFlagSet("build", flag.ExitOnError)
+func cmdMecka(args []string) error {
+	fs := flag.NewFlagSet("mecka", flag.ExitOnError)
 	out := fs.String("o", "", "output binary path")
 	if err := fs.Parse(args); err != nil {
 		return err
@@ -111,7 +111,7 @@ func cmdBuild(args []string) error {
 	if fs.NArg() == 1 {
 		path = fs.Arg(0)
 	} else if fs.NArg() > 1 {
-		return fmt.Errorf("build: expected at most one path, got %d args", fs.NArg())
+		return fmt.Errorf("mecka: expected at most one path, got %d args", fs.NArg())
 	}
 
 	buildDir, err := prepareBuildDir(path)

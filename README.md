@@ -47,11 +47,11 @@ renamed too (`nuffra`, `tjöt`). Everything else in builtins and stdlib
 ## hörru() / Tjöta() — runtime helpers
 
 Two words in Gotlang aren't token swaps like the rest of the table — they're
-real helper functions that `gotlang run`/`gotlang build` generate and inject
+real helper functions that `gotlang run`/`gotlang mecka` generate and inject
 into the build (as `gotlang_runtime.go`) whenever a `.got` file calls them.
 `gotlang translate` only ever does token swapping on a single file, so a
 file calling either will translate to Go that references an undefined
-function — use `run`/`build` for a complete, runnable program.
+function — use `run`/`mecka` for a complete, runnable program.
 
 - `hörru()` reads a line from stdin, the way Python's `input()` does —
   something Go has no builtin for.
@@ -74,12 +74,15 @@ go build ./cmd/gotlang   # or: go run ./cmd/gotlang ...
 
 gotlang translate <file.got> [-o out.go]   # emit the translated Go source
 gotlang run <path>                         # translate a package and run it
-gotlang build <path> [-o binary]           # translate a package and build it
+gotlang mecka <path> [-o binary]           # translate a package and compile it
 ```
+
+`mecka` is GBG slang for tinkering something together — Göteborg's a car
+town, so it's the natural word for "compile."
 
 Flags must come before the positional path, same as the `go` tool itself.
 
-`run`/`build` translate every `*.got` file under `<path>` into a
+`run`/`mecka` translate every `*.got` file under `<path>` into a
 `.gotlang-build/` cache directory next to it (copying `go.mod`/`go.sum`
 alongside so imports resolve), then invoke the real `go` toolchain there.
 Each program needs its own directory with its own `go.mod`, same as any Go
